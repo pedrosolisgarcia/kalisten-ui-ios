@@ -16,7 +16,7 @@ public struct PrimaryButton: View {
     private let buttonAction: () -> Void
     private let shouldExpand: Bool
 
-    init(
+    public init(
         label: LocalizedStringKey,
         action: @escaping () -> Void,
         expand: Bool
