@@ -11,12 +11,12 @@ import SwiftUI
 import Layout
 import Colors
 
-struct PrimaryButton: View {
+public struct PrimaryButton: View {
     private let buttonLabel: LocalizedStringKey
     private let buttonAction: () -> Void
     private let shouldExpand: Bool
 
-    init(
+    public init(
         label: LocalizedStringKey,
         action: @escaping () -> Void,
         expand: Bool
@@ -26,7 +26,7 @@ struct PrimaryButton: View {
         self.shouldExpand = expand
     }
 
-    var body: some View {
+    public var body: some View {
         Button(action: {
             buttonAction()
         }) {
