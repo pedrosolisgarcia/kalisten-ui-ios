@@ -2,20 +2,8 @@
 #
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
 
-#####
-# OS X temporary files that should never be committed
-.DS_Store
-*.swp
-profile
-
-####
-# Xcode temporary files that should never be committed
-*~.nib
-
 ## User settings
 xcuserdata/
-!xcschemes
-*.xcworkspacedata
 
 ## compatibility with Xcode 8 and earlier (ignoring not required starting Xcode 9)
 *.xcscmblueprint
@@ -49,14 +37,14 @@ playground.xcworkspace
 # Swift Package Manager
 #
 # Add this line if you want to avoid checking in source code from Swift Package Manager dependencies.
-Packages/
-Package.pins
-Package.resolved
-*.xcodeproj
+# Packages/
+# Package.pins
+# Package.resolved
+# *.xcodeproj
 #
 # Xcode automatically generates this directory with a .xcworkspacedata file and xcuserdata
 # hence it is not needed unless you have added a package configuration file to your project
-.swiftpm
+# .swiftpm
 
 .build/
 
