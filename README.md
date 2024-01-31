@@ -1,4 +1,3 @@
-
 # Kalisten UI Library for iOS
 
 ## Overview
@@ -23,7 +22,7 @@ To integrate Kalisten UI into your Xcode project using *Swift Package Manager*, 
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/pedrosolisgarcia/kalisten-ui-ios.git", from: "1.0.0-alpha")
+    .package(url: "https://github.com/pedrosolisgarcia/kalisten-ui-ios.git", .upToNextMajor(from: "1.0.0"))
 ]
 ```
 
