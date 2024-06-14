@@ -1,13 +1,10 @@
 //
-//  CustomLinearGradients.swift
-//  Kalisten
-//
-//  Created by Pedro Solis Garcia on 12/05/20.
-//  Copyright © 2020 VILHON Technologies. All rights reserved.
+//  Copyright © Kalisten 2024
 //
 
+import KalistenColors
+
 import SwiftUI
-import Colors
 
 internal extension LinearGradient {
     static let primaryVertical = LinearGradient(

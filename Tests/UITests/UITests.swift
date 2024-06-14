@@ -1,5 +1,9 @@
+//
+//  Copyright © Kalisten 2024
+//
+
 import XCTest
-@testable import UI
+@testable import KalistenUI
 
 final class UITests: XCTestCase {
     func testExample() throws {
