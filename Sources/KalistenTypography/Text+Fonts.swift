@@ -1,8 +1,5 @@
 //
-//  Text+Fonts.swift
-//
-//
-//  Created by Pedro Solís García on 30/1/24.
+//  Copyright © Kalisten 2024
 //
 
 import SwiftUI

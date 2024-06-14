@@ -1,15 +1,13 @@
 //
-//  PrimaryButton.swift
-//
-//
-//  Created by Pedro Solís García on 28/1/24.
+//  Copyright © Kalisten 2024
 //
 
-import Typography
-import Gradients
+import KalistenTypography
+import KalistenGradients
+import KalistenColors
+import KalistenLayout
+
 import SwiftUI
-import Layout
-import Colors
 
 public struct PrimaryButton: View {
     private let buttonLabel: LocalizedStringKey
