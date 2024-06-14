@@ -3,14 +3,14 @@ output_dir: ${DERIVED_SOURCES_DIR}
 
 fonts:
   inputs:
-    - Typography/Resources/Fonts
+    - KalistenTypography/Resources/Fonts
   outputs:
     templateName: swift5
     output: AssetFonts.swift
 
 xcassets:
   inputs:
-    - Colors/Resources/Colors.xcassets
+    - KalistenColors/Resources/Colors.xcassets
   outputs:
     templateName: swift5
     output: AssetColors.swift

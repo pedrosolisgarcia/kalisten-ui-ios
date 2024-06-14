@@ -1,9 +1,5 @@
 //
-//  Colors.swift
-//
-//
-//  Created by Pedro Solís García on 28/1/24.
-//  Copyright © 2024 VILHON Technologies. All rights reserved.
+//  Copyright © Kalisten 2024
 //
 
 import SwiftUI

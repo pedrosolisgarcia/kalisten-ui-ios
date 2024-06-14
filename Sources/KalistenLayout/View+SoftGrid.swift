@@ -1,9 +1,5 @@
 //
-//  View+CustomGrid.swift
-//  Kalisten
-//
-//  Created by Pedro Solis Garcia on 30/08/21.
-//  Copyright © 2021 VILHON Technologies. All rights reserved.
+//  Copyright © Kalisten 2024
 //
 //  swiftlint:disable identifier_name
 //
