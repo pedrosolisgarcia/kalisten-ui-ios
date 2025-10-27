@@ -108,6 +108,12 @@ public extension VStack {
     }
 }
 
+public extension LazyVStack {
+    init?(alignment: HorizontalAlignment = .center, spacing: SoftGrid, @ViewBuilder content: () -> Content) {
+        self.init(alignment: alignment, spacing: spacing.rawValue, content: content)
+    }
+}
+
 public extension LazyVGrid {
     init?(columns: [GridItem], spacing: SoftGrid, @ViewBuilder content: () -> Content) {
         self.init(columns: columns, spacing: spacing.rawValue, content: content)

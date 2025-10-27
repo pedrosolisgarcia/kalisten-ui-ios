@@ -8,7 +8,7 @@ import PackageDescription
 
 let package = Package(
     name: "KalistenUI",
-    platforms: [.iOS(.v16)],
+    platforms: [.iOS(.v17)],
     products: [
         /// Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
@@ -16,6 +16,7 @@ let package = Package(
             targets: [
                 "KalistenUI",
                 "KalistenColors",
+                "KalistenCore",
                 "KalistenLayout",
                 "KalistenGradients",
                 "KalistenTypography"
@@ -36,6 +37,9 @@ let package = Package(
             ]
         ),
         .target(
+            name: "KalistenCore"
+        ),
+        .target(
             name: "KalistenGradients",
             dependencies: [
                 "KalistenColors"
@@ -46,6 +50,9 @@ let package = Package(
         ),
         .target(
             name: "KalistenTypography",
+            dependencies: [
+                "KalistenLayout"
+            ],
             resources: [.process("Resources")],
             plugins: [
                 .plugin(name: "SwiftGenPlugin", package: "SwiftGenPlugin")
@@ -55,6 +62,7 @@ let package = Package(
             name: "KalistenUI",
             dependencies: [
                 "KalistenColors",
+                "KalistenCore",
                 "KalistenLayout",
                 "KalistenTypography",
                 "KalistenGradients"
