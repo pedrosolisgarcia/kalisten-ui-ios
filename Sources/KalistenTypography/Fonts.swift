@@ -2,32 +2,34 @@
 //  Copyright © Kalisten 2024
 //
 
+import KalistenLayout
+
 import CoreFoundation
 import Foundation
 
-public enum Fonts {
+public enum Fonts: Equatable {
     case largeTitle
     case title
     case subtitle
-    case button
+    case button(_ size: ButtonSize)
     case body
     case label
     case footnote
 
-    var size: CGFloat {
+    public var size: CGFloat {
         switch self {
-            case .largeTitle:
-                return 40
-            case .title:
-                return 32
-            case .subtitle:
-                return 24
-            case .button:
-                return 18
-            case .body:
-                return 17
-            case .label, .footnote:
-                return 11
+        case .largeTitle:
+            return 40
+        case .title:
+            return 32
+        case .subtitle:
+            return 24
+        case .button(let size):
+            return size.fontSize
+        case .body:
+            return 17
+        case .label, .footnote:
+            return 11
         }
     }
 
