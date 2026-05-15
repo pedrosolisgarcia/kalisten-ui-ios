@@ -13,6 +13,7 @@ import SwiftUI
 public struct PrimaryButton: View {
     @Binding private var status: ActionStatus
     private let size: ButtonSize
+    private let buttonIcon: ButtonIcon?
     private let buttonLabel: LocalizedStringKey
     private let buttonAction: () -> Void
     private let shouldExpand: Bool
@@ -20,12 +21,14 @@ public struct PrimaryButton: View {
     public init(
         size: ButtonSize,
         status: Binding<ActionStatus> = .constant(.idle),
+        icon: ButtonIcon? = nil,
         label: LocalizedStringKey,
         expand: Bool = true,
         action: @escaping () -> Void
     ) {
         self._status = status
         self.size = size
+        self.buttonIcon = icon
         self.buttonLabel = label
         self.buttonAction = action
         self.shouldExpand = expand
@@ -36,6 +39,7 @@ public struct PrimaryButton: View {
             status: $status,
             type: .primary,
             size: size,
+            icon: buttonIcon,
             label: buttonLabel,
             action: buttonAction,
             expand: shouldExpand)
@@ -48,6 +52,7 @@ public struct PrimaryButton: View {
         VStack {
             PrimaryButton(
                 size: .small,
+                icon: .init(icon: SFSymbols.chevronLeft, side: .leading),
                 label: "Button",
                 expand: false,
                 action: {})

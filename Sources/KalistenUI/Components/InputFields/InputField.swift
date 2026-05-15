@@ -49,7 +49,7 @@ public struct InputField: View {
                 validateField(ignore: isFocused)
             }
         ) {
-            TextField(.empty, text: $text)
+            TextField(.empty, text: $text, axis: .vertical)
                 .textInputAutocapitalization(inputType.capitalization)
                 .textContentType(inputType.contentType)
                 .keyboardType(inputType.keyboardType)

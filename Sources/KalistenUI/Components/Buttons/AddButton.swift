@@ -1,5 +1,5 @@
 //
-//  Copyright © Kalisten 2024
+//  Copyright © Kalisten 2026
 //
 
 import KalistenTypography
@@ -10,61 +10,56 @@ import KalistenCore
 
 import SwiftUI
 
-public struct SecondaryButton: View {
+public struct AddButton: View {
     @Binding private var status: ActionStatus
     private let size: ButtonSize
-    private let buttonIcon: ButtonIcon?
     private let buttonLabel: LocalizedStringKey
     private let buttonAction: () -> Void
-    private let shouldExpand: Bool
 
     public init(
         size: ButtonSize,
         status: Binding<ActionStatus> = .constant(.idle),
-        icon: ButtonIcon? = nil,
         label: LocalizedStringKey,
-        expand: Bool = true,
         action: @escaping () -> Void
     ) {
         self._status = status
         self.size = size
-        self.buttonIcon = icon
         self.buttonLabel = label
         self.buttonAction = action
-        self.shouldExpand = expand
     }
 
     public var body: some View {
         MainButton(
             status: $status,
-            type: .secondary,
+            type: .add,
             size: size,
-            icon: buttonIcon,
+            icon: ButtonIcon(
+                icon: SFSymbols.plus,
+                side: .leading),
             label: buttonLabel,
+            glassEffect: .clear,
             action: buttonAction,
-            expand: shouldExpand)
+            expand: true)
     }
 }
 
 #Preview {
     ZStack {
         Colors.Neutral.light
-        VStack {
-            SecondaryButton(
+        VStack(spacing: .small) {
+            AddButton(
                 size: .small,
-                label: "Button",
-                expand: false,
+                label: "Add Set",
                 action: {})
-            SecondaryButton(
+            AddButton(
                 size: .medium,
-                label: "Button",
-                expand: false,
+                label: "Add Exercise",
                 action: {})
-            SecondaryButton(
+            AddButton(
                 size: .large,
-                label: "Button",
-                expand: false,
+                label: "Add Block",
                 action: {})
         }
+        .padding()
     }.ignoresSafeArea()
 }

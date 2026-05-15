@@ -58,7 +58,7 @@ struct BaseField<Content: View>: View {
                 .foregroundColor(Colors.Secondary.Lighter.opaque)
                 .accentColor(Colors.Primary.Mid.opaque)
                 .padding(.base)
-                .frame(height: .xlarge)
+                .frame(minHeight: .xlarge)
                 .background(backgroundColor)
                 .cornerRadius(.base, antialiased: true)
                 .onChange(of: isFocused.wrappedValue) { focusState in

@@ -28,4 +28,14 @@ internal extension LinearGradient {
         startPoint: .top,
         endPoint: .bottom
     )
+
+    static let clear = LinearGradient(
+        gradient: Gradient(
+            colors: [
+                .clear
+            ]
+        ),
+        startPoint: .top,
+        endPoint: .bottom
+    )
 }

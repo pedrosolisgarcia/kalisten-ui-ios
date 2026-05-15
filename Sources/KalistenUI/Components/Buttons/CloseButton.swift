@@ -8,11 +8,9 @@ import KalistenColors
 import SwiftUI
 
 public struct CloseButton: View {
-    private let font: Fonts
     private let onClose: (() -> Void)?
 
-    public init(font: Fonts = .subtitle, onClose: (() -> Void)?) {
-        self.font = font
+    public init(onClose: (() -> Void)?) {
         self.onClose = onClose
     }
 
@@ -22,14 +20,18 @@ public struct CloseButton: View {
                 onClose?()
             }
         } label: {
-            Image(systemName: SFSymbols.closeFill)
-                .font(.system(size: font.size))
-                .foregroundColor(Colors.Secondary.Mid.semiOpaque)
+            Image(systemName: SFSymbols.close)
+                .fontStyle(.button(.large))
+                .foregroundColor(Colors.Secondary.Mid.opaque)
+                .frame(width: .xlarge, height: .xlarge)
         }
+        .glassEffect(.clear.interactive())
     }
 }
 
 #Preview {
-    CloseButton(onClose: nil)
-        .background(Colors.Neutral.light)
+    ZStack {
+        Colors.Neutral.light
+        CloseButton {}
+    }
 }

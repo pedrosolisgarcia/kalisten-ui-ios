@@ -3,6 +3,7 @@
 //
 
 import KalistenTypography
+import KalistenColors
 
 import SwiftUI
 
@@ -14,8 +15,14 @@ public struct ClearFieldButton: View {
     }
 
     public var body: some View {
-        CloseButton(font: .button(.small)) {
-            text.removeAll()
+        Button {
+            withAnimation {
+                text.removeAll()
+            }
+        } label: {
+            Image(systemName: SFSymbols.close)
+                .fontStyle(.label)
+                .foregroundColor(Colors.Secondary.Mid.semiOpaque)
         }
     }
 }

@@ -11,24 +11,22 @@ import KalistenCore
 import SwiftUI
 
 enum ButtonType {
-    case primary
-    case secondary
+    case primary, secondary, add
+    
 
     var fontColor: Color {
         switch self {
-        case .primary:
-            return Colors.Secondary.Lighter.opaque
-        case .secondary:
-            return Colors.Primary.Mid.opaque
+        case .primary:   Colors.Secondary.Lighter.opaque
+        case .secondary: Colors.Primary.Mid.opaque
+        case .add:       Colors.Secondary.Mid.opaque
         }
     }
 
     var backgroundGradient: some View {
         switch self {
-        case .primary:
-            return Gradients.Primary.vertical
-        case .secondary:
-            return Gradients.Secondary.vertical
+        case .primary:   Gradients.Primary.vertical
+        case .secondary: Gradients.Secondary.vertical
+        case .add:       Gradients.clear
         }
     }
 }
@@ -36,23 +34,17 @@ enum ButtonType {
 extension ButtonSize {
     var heigth: CGFloat {
         switch self {
-        case .large:
-            return 52
-        case .medium:
-            return 44
-        case .small:
-            return 36
+        case .large:  52
+        case .medium: 44
+        case .small:  36
         }
     }
 
     var horizontalPadding: SoftGrid {
         switch self {
-        case .large:
-            return .large
-        case .medium:
-            return .medium
-        case .small:
-            return .small
+        case .large:  .large
+        case .medium: .medium
+        case .small:  .small
         }
     }
 }
@@ -61,7 +53,9 @@ struct MainButton: View {
     @Binding private var status: ActionStatus
     private let button: ButtonType
     private let size: ButtonSize
+    private let buttonIcon: ButtonIcon?
     private let buttonLabel: LocalizedStringKey
+    private let glassEffect: Glass
     private let buttonAction: () -> Void
     private let shouldExpand: Bool
 
@@ -69,14 +63,18 @@ struct MainButton: View {
         status: Binding<ActionStatus>,
         type: ButtonType,
         size: ButtonSize,
+        icon: ButtonIcon?,
         label: LocalizedStringKey,
+        glassEffect: Glass = .regular,
         action: @escaping () -> Void,
         expand: Bool
     ) {
         self._status = status
         self.button = type
         self.size = size
+        self.buttonIcon = icon
         self.buttonLabel = label
+        self.glassEffect = glassEffect
         self.buttonAction = action
         self.shouldExpand = expand
     }
@@ -88,9 +86,6 @@ struct MainButton: View {
             }
         } label: {
             HStack(spacing: .zero) {
-                if shouldExpand {
-                    Spacer(minLength: .zero)
-                }
                 if status == .loading {
                     SpinnerView(
                         status: $status,
@@ -98,20 +93,74 @@ struct MainButton: View {
                         font: .button(size)
                     )
                 } else {
-                    Text(buttonLabel)
-                        .fontStyle(.button(size))
-                        .foregroundColor(button.fontColor)
-                        .shadow(color: .black.opacity(0.25), radius: 4, y: 2)
-                        .lineLimit(1)
-                }
-                if shouldExpand {
-                    Spacer(minLength: .zero)
+                    Group {
+                        if let buttonIcon,
+                           buttonIcon.shouldRender(at: .leading) {
+                            MainButtonIconView(buttonIcon: buttonIcon, buttonSize: size)
+                        }
+                        Text(buttonLabel)
+                            .frame(maxWidth: shouldExpand ? .infinity : nil)
+                            .minimumScaleFactor(0.6)
+                        if let buttonIcon,
+                           buttonIcon.shouldRender(at: .trailing) {
+                            MainButtonIconView(buttonIcon: buttonIcon, buttonSize: size)
+                        }
+                    }
+                    .fontStyle(.button(size))
+                    .foregroundColor(button.fontColor)
+                    .shadow(color: .black.opacity(0.25), radius: 4, y: 2)
+                    .lineLimit(1)
                 }
             }
             .frame(height: size.heigth)
-            .padding(.horizontal, size.horizontalPadding)
+            .frame(maxWidth: shouldExpand ? .infinity : nil)
+            .padding(edges, size.horizontalPadding)
             .background(button.backgroundGradient)
-            .cornerRadius(.base)
+            .cornerRadius(.small)
+            .glassEffect(glassEffect.interactive(), in: .rect(cornerRadius: SoftGrid.small.rawValue))
+        }
+        .buttonStyle(.plain)
+        
+    }
+}
+
+private extension MainButton {
+    var edges: Edge.Set {
+        guard let buttonIcon,
+              buttonIcon.hasValidIcon,
+              status != .loading else {
+            return .horizontal
+        }
+
+        if buttonIcon.side == .trailing {
+            return .leading
+        } else {
+            return .trailing
+        }
+    }
+
+    struct MainButtonIconView: View {
+        let buttonIcon: ButtonIcon
+        let buttonSize: ButtonSize
+
+        var body: some View {
+            ZStack {
+                Rectangle()
+                    .fill(.clear)
+                    .frame(width: buttonSize.heigth, height: buttonSize.heigth)
+
+                switch buttonIcon.type {
+                case .image:
+                    Image(buttonIcon.icon)
+                        .resizable()
+                        .renderingMode(.template)
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: buttonSize.heigth / 2)
+                case .sfSymbol:
+                    Image(systemName: buttonIcon.icon)
+                        .fontWeight(.heavy)
+                }
+            }
         }
     }
 }
@@ -121,6 +170,29 @@ struct MainButton: View {
         status: .constant(.idle),
         type: .primary,
         size: .large,
+        icon: .init(icon: SFSymbols.chevronRight, side: .trailing),
+        label: "Button",
+        action: {},
+        expand: false)
+}
+
+#Preview {
+    MainButton(
+        status: .constant(.idle),
+        type: .secondary,
+        size: .large,
+        icon: .init(icon: SFSymbols.chevronLeft, side: .leading),
+        label: "Button",
+        action: {},
+        expand: true)
+}
+
+#Preview {
+    MainButton(
+        status: .constant(.idle),
+        type: .primary,
+        size: .large,
+        icon: nil,
         label: "Button",
         action: {},
         expand: false)

@@ -1,4 +1,4 @@
-// swift-tools-version: 5.9
+// swift-tools-version: 6.2
 //
 //  Copyright © Kalisten 2024-2026
 //
@@ -7,7 +7,7 @@ import PackageDescription
 
 let package = Package(
     name: "KalistenUI",
-    platforms: [.iOS(.v17)],
+    platforms: [.iOS(.v26)],
     products: [
         /// Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
@@ -31,21 +31,25 @@ let package = Package(
         .target(
             name: "KalistenColors",
             resources: [.process("Resources")],
+            swiftSettings: [.swiftLanguageMode(.v5)],
             plugins: [
                 .plugin(name: "SwiftGenPlugin", package: "SwiftGenPlugin")
             ]
         ),
         .target(
-            name: "KalistenCore"
+            name: "KalistenCore",
+            swiftSettings: [.swiftLanguageMode(.v5)]
         ),
         .target(
             name: "KalistenGradients",
             dependencies: [
                 "KalistenColors"
-            ]
+            ],
+            swiftSettings: [.swiftLanguageMode(.v5)]
         ),
         .target(
-            name: "KalistenLayout"
+            name: "KalistenLayout",
+            swiftSettings: [.swiftLanguageMode(.v5)]
         ),
         .target(
             name: "KalistenTypography",
@@ -53,6 +57,7 @@ let package = Package(
                 "KalistenLayout"
             ],
             resources: [.process("Resources")],
+            swiftSettings: [.swiftLanguageMode(.v5)],
             plugins: [
                 .plugin(name: "SwiftGenPlugin", package: "SwiftGenPlugin")
             ]
@@ -65,13 +70,15 @@ let package = Package(
                 "KalistenLayout",
                 "KalistenTypography",
                 "KalistenGradients"
-            ]
+            ],
+            swiftSettings: [.swiftLanguageMode(.v5)]
         ),
         .testTarget(
             name: "UITests",
             dependencies: [
                 "KalistenUI"
-            ]
+            ],
+            swiftSettings: [.swiftLanguageMode(.v5)]
         )
     ]
 )
